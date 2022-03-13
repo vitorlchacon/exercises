@@ -50,4 +50,14 @@ class Exercise2Test {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> Exercise2.main(new String[] { "[{\"country\":\"US\",\"languages\":[\"en\"]},{\"abc\":\"US\",\"languages\":[]}]" }));
         assertEquals("Invalid format of input data.", e.getMessage());
     }
+
+    @Test
+    void testWithDefaultJSON(){
+        Exercise2.main(null);
+    }
+
+    @Test
+    void testWithCustomJSON(){
+        Exercise2.main(new String[]{"[{\"country\":\"US\",\"languages\":[\"en\",\"es\"]},{\"country\":\"BE\",\"languages\":[\"nl\",\"fr\",\"de\"]},{\"country\":\"NL\",\"languages\":[\"nl\",\"fy\"]},{\"country\":\"DE\",\"languages\":[\"de\"]},{\"country\":\"SU\",\"languages\":[\"de\",\"it\",\"fr\"]},{\"country\":\"ES\",\"languages\":[\"es\"]},{\"country\":\"PT\",\"languages\":[\"pt\"]},{\"country\":\"BR\",\"languages\":[\"pt\"]}]"});
+    }
 }

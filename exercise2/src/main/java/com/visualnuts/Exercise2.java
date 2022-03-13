@@ -110,6 +110,9 @@ public class Exercise2 {
 
     private static String validateInput(String[] args) {
         String input = DEFAULT_JSON;
+        if (args == null) {
+            return input;
+        }
         if (args.length > 0) {
             if (args[0] == null) {
                 throw new IllegalArgumentException("Null argument not allowed.");
