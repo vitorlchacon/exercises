@@ -1,10 +1,9 @@
 package com.visualnuts;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -24,20 +23,16 @@ public class Exercise2 {
         evaluateData(countries);
     }
 
-    static int totalCountries(Country[] countries) {
-        System.out.println("1 - There are " + countries.length + " countries in the world.");
-        return countries.length;
-    }
-
     private static void evaluateData(Country[] countries) {
         int countryWithMostLanguagesHavingDEIndex = -1;
-        Set<String> spokenLanguages = new HashSet<>();
         int countryWithMostLanguagesIndex = -1;
-        Map<String, Integer> languageOcurrences = new HashMap<>();
+        Map<String, Integer> languageOccurrences = new HashMap<>();
+        int totalMostSpokenLanguageOccurrences = 0;
+        List<String> mostSpokenLanguages = new ArrayList<>();
 
         for (int i = 0; i < countries.length; i++) {
             // Eval for question 2
-            int languageLengthHavingDE = getLanguageLengthHavingDE(countries[i]);
+            final int languageLengthHavingDE = getLanguageLengthHavingDE(countries[i]);
             if (languageLengthHavingDE > 0) {
                 try {
                     if (languageLengthHavingDE > countries[countryWithMostLanguagesHavingDEIndex].getLanguages().length) {
@@ -49,8 +44,15 @@ public class Exercise2 {
                 }
             }
 
-            // Eval for question 3
-            spokenLanguages.addAll(Arrays.asList(countries[i].getLanguages()));
+            // Eval question 3 and part of 5
+            for (int j = 0; j < countries[i].getLanguages().length; j++) {
+                String language = countries[i].getLanguages()[j];
+                if(languageOccurrences.get(language) != null) {
+                    languageOccurrences.compute(language, (key, val) -> ++val);
+                } else {
+                    languageOccurrences.put(language, 1);
+                }
+            }
 
             // Eval for question 4
             try {
@@ -61,8 +63,17 @@ public class Exercise2 {
                 // That's the first country
                 countryWithMostLanguagesIndex = i;
             }
+        }
 
-
+        // Final eval for question 5
+        for (String spokenLanguage : languageOccurrences.keySet()) {
+            if (languageOccurrences.get(spokenLanguage) > totalMostSpokenLanguageOccurrences) {
+                totalMostSpokenLanguageOccurrences = languageOccurrences.get(spokenLanguage);
+                mostSpokenLanguages = new ArrayList<>();
+                mostSpokenLanguages.add(spokenLanguage);
+            } else if (languageOccurrences.get(spokenLanguage) == totalMostSpokenLanguageOccurrences) {
+                mostSpokenLanguages.add(spokenLanguage);
+            }
         }
 
         // Question 2
@@ -74,10 +85,18 @@ public class Exercise2 {
         }
 
         // Question 3
-        System.out.println("3 - There are " + spokenLanguages.size() + " official languages spoken in the listed countries.");
+        System.out.println("3 - There are " + languageOccurrences.keySet().size() + " official languages spoken in the listed countries.");
 
         // Question 4
         System.out.println("4 - The country with the most official languages is " + countries[countryWithMostLanguagesIndex].getCountry() + ".");
+
+        // Question 5
+        System.out.println("5 - The most spoken language with " + totalMostSpokenLanguageOccurrences + " occurrences are " + mostSpokenLanguages + ".");
+    }
+
+    private static int totalCountries(Country[] countries) {
+        System.out.println("1 - There are " + countries.length + " countries in the world.");
+        return countries.length;
     }
 
     private static int getLanguageLengthHavingDE(Country country) {
