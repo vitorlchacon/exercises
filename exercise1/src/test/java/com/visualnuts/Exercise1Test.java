@@ -24,7 +24,7 @@ class Exercise1Test {
     @Test
     void exceptionWithNegativeNumberArgument() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> Exercise1.main(new String[] { "0" }));
-        assertEquals(e.getMessage(), "0 not allowed.");
+        assertEquals("0 not allowed.", e.getMessage());
     }
 
     @Test
