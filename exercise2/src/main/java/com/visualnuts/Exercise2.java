@@ -10,6 +10,7 @@ public class Exercise2 {
     public static void main(String[] args) {
         final String input = validateInput(args);
         final Country[] countries = validateJSONAndParseCountries(input);
+        totalCountries(countries);
 
     }
 
@@ -40,5 +41,10 @@ public class Exercise2 {
         } catch (JsonSyntaxException e) {
             throw new IllegalArgumentException(e);
         }
+    }
+
+    public static int totalCountries(Country[] countries) {
+        System.out.println(new StringBuilder().append("There are ").append(countries.length).append(" countries in the world").toString());
+        return countries.length;
     }
 }
