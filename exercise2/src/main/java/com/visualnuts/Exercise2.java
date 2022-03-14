@@ -9,6 +9,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.visualnuts.model.Country;
 
+
+/**
+ * @author Vitor Chacon
+ *
+ * Exercise2:
+ * An algorithm that prints several informations given a list of countries with name and a list of spoken languages.
+ */
 public class Exercise2 {
     private static final String DEFAULT_JSON = "[{\"country\":\"US\",\"languages\":[\"en\"]},{\"country\":\"BE\",\"languages\":[\"nl\",\"fr\",\"de\"]},{\"country\":\"NL\",\"languages\":[\"nl\",\"fy\"]},{\"country\":\"DE\",\"languages\":[\"de\"]},{\"country\":\"ES\",\"languages\":[\"es\"]}]";
 
